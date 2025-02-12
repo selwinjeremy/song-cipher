@@ -68,3 +68,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+## NOTES ON HOW TO IMPLEMENT THE GAME
+
+The first step is to fetch the top 200 songs in America in either Pop or Hip Hop
+
+After this is fetched, select a random song in the category
+
+Store the Artist, Features, Year Released, Album, Top-200 Position, and Producer
+
+Implement a search bar where the user can type in song names and a dropdown list of songs will show
+
+When a song is clicked, match based on above categories
+
+If the user chooses gets the correct value for the category it will be highlighted green
+
+For the artist, it will be highlighted yellow if they are a feature on the song
+
+There will be an up or down arrow beside the year depending on if it came out earlier or later
+
+There will be an up or down arrow depending on if its higher in the top 200 or lower
+
+The user will have 6 attempts to select it.
