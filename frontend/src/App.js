@@ -36,7 +36,7 @@ function App() {
             Welcome to Song-Cipher
           </Typography>
           <Typography variant="h5" color="textSecondary" paragraph>
-            Decipher the musical clues to solve today's song challenge
+            Decipher the musical clues to guess the song!
           </Typography>
 
           {/* Render Navigation Component */}

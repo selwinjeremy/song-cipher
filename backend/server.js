@@ -104,7 +104,7 @@ app.get("/search", async (req, res) => {
     try {
         const response = await axios.get("https://api.spotify.com/v1/search", {
             headers: { Authorization: `Bearer ${token}` },
-            params: { q: query, type: "track", limit: 5 },
+            params: { q: query, type: "track", limit: 10 },
         });
 
         res.json(response.data.tracks); // Return only the tracks

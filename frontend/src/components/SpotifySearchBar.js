@@ -12,6 +12,13 @@ const SearchBar = ({ songToGuess }) => {
     const [guessingData, setGuessingData] = useState([]);
     const [guessedTrack, setGuessedTrack] = useState({});
     const [winModalOpen, setWinModalOpen] = useState(false);
+    const [hintsDialogOpen, setHintsDialogOpen] = useState(false);
+    const [revealedHints, setRevealedHints] = useState({
+        name: false,
+        artists: false,
+        album: false,
+        year: false,
+    });
 
     const songToMatch = songToGuess;
 
@@ -27,7 +34,7 @@ const SearchBar = ({ songToGuess }) => {
         title: {
             fontSize: '1.5rem',
             fontWeight: 'bold',
-            color: '#1DB954', // Spotify's signature green color
+            color: 'white', // Spotify's signature green color
         },
         content: {
             fontSize: '1.1rem',
@@ -42,6 +49,13 @@ const SearchBar = ({ songToGuess }) => {
                 backgroundColor: '#1ED760', // Slightly brighter green on hover
             },
         },
+    };
+
+    const handleHintReveal = (hint) => {
+        setRevealedHints((prevState) => ({
+            ...prevState,
+            [hint]: true,
+        }));
     };
 
     useEffect(() => {
@@ -272,7 +286,7 @@ const SearchBar = ({ songToGuess }) => {
                 }}
             >
                 <DialogTitle style={modalStyles.title}>
-                    🎉 You Win! 🎉
+                    🎉 You Won in {guessingData.length} Tries! 🎉
                 </DialogTitle>
                 <DialogContent>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -297,7 +311,7 @@ const SearchBar = ({ songToGuess }) => {
 
                         {/* Song Details */}
                         <Box>
-                            <Typography variant="h6" color="primary" style={modalStyles.content}>
+                            <Typography variant="h6" color="#1DB954" style={modalStyles.content} sx={{fontWeight: 'bold'}}>
                                 {songToMatch.name}
                             </Typography>
                             <Typography variant="body2" style={modalStyles.content}>
@@ -315,6 +329,62 @@ const SearchBar = ({ songToGuess }) => {
                 <DialogActions sx={{ justifyContent: 'center', paddingBottom: '20px' }}>
                     <Button onClick={handleRefresh} variant="contained" style={modalStyles.button}>
                         Click to Start a New Game
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={hintsDialogOpen} onClose={() => setHintsDialogOpen(false)}>
+                <DialogTitle sx={{fontWeight: 'bold'}}>Song Hints</DialogTitle>
+                <DialogContent>
+                    <Box>
+                        {/* Name Hint */}
+                        <Typography variant="body1" sx={{ mb: 2 }}>
+                            <strong>Name:</strong>{' '}
+                            <Button
+                                onClick={() => handleHintReveal('name')}
+                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                            >
+                                {revealedHints.name ? songToMatch.name : 'Click to Reveal'}
+                            </Button>
+                        </Typography>
+
+                        {/* Artists Hint */}
+                        <Typography variant="body1" sx={{ mb: 2 }}>
+                            <strong>Artists:</strong>{' '}
+                            <Button
+                                onClick={() => handleHintReveal('artists')}
+                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                            >
+                                {revealedHints.artists ? songToMatch.artists.join(', ') : 'Click to Reveal'}
+                            </Button>
+                        </Typography>
+
+                        {/* Album Hint */}
+                        <Typography variant="body1" sx={{ mb: 2 }}>
+                            <strong>Album:</strong>{' '}
+                            <Button
+                                onClick={() => handleHintReveal('album')}
+                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                            >
+                                {revealedHints.album ? songToMatch.album : 'Click to Reveal'}
+                            </Button>
+                        </Typography>
+
+                        {/* Year Hint */}
+                        <Typography variant="body1" sx={{ mb: 2 }}>
+                            <strong>Year:</strong>{' '}
+                            <Button
+                                onClick={() => handleHintReveal('year')}
+                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                            >
+                                {revealedHints.year ? songToMatch.released : 'Click to Reveal'}
+                            </Button>
+                        </Typography>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setHintsDialogOpen(false)} style={modalStyles.button} variant="contained">
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -395,6 +465,9 @@ const SearchBar = ({ songToGuess }) => {
             </Grid2>
             <Grid2 item xs={12} sm={6} sx={{ width: '65%' }}>
                 <GuessesTable guesses={guessingData} />
+                <Button variant="contained" onClick={() => setHintsDialogOpen(true)} style={modalStyles.button} sx={{ width: '95%' }}>
+                    Get Hints for the Song
+                </Button>
             </Grid2>
         </Grid2>
 
