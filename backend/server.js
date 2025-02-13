@@ -92,7 +92,6 @@ const getAccessToken = async () => {
 app.get("/search", async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")[1]; // Extract token from headers
     const query = req.query.query; // Extract search query from request params
-    console.log(query);
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized: Missing access token" });
@@ -110,10 +109,29 @@ app.get("/search", async (req, res) => {
 
         res.json(response.data.tracks); // Return only the tracks
 
-        console.log(response.data.tracks)
     } catch (error) {
         console.error("Spotify search error:", error.response?.data || error.message);
         res.status(500).json({ error: "Failed to fetch songs" });
+    }
+});
+
+// Fetch song by id
+app.get("/song", async (req, res) => {
+    const token = req.headers.authorization?.split("Bearer ")[1]; // Extract token from headers
+    const songId = req.query.songId;
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized: Missing access token" });
+    }
+
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/tracks/${songId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        res.json(response.data);
+    } catch (error) {
+        console.error("Error fetching playlists:", error.response?.data || error.message);
+        res.status(error.response?.status).json({ error: "Failed to fetch playlists" });
     }
 });
 
@@ -131,6 +149,7 @@ app.get("/playlistSong", async (req, res) => {
         });
 
         const randomTrack = getRandomTrack(response.data.tracks['items'])
+        console.log(randomTrack.track.name)
         res.json(randomTrack);
     } catch (error) {
         console.error("Error fetching playlists:", error.response?.data || error.message);

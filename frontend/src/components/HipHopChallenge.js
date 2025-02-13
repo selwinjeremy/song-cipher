@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Typography, List, ListItem, ListItemText, Button, Grid2 } from "@mui/material";
 import axios from "axios";
 import SearchBar from './SpotifySearchBar';
-import GuessesTable from "./GuessesTable";
 
 const HipHopChallenge = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -39,6 +38,7 @@ const HipHopChallenge = () => {
         let popularityScore = response?.data?.track?.popularity;
         let trackLength = response?.data?.track?.duration_ms;
         let artists = response?.data?.track?.artists.map(artist => artist.name);
+        let imageUrl = response?.data?.track?.album?.images[0]?.url;
 
         setRandomTrack({
           'name': trackName,
@@ -46,7 +46,8 @@ const HipHopChallenge = () => {
           'album': albumName,
           'popularity': popularityScore,
           'songLength': trackLength,
-          'artists': artists
+          'artists': artists,
+          'image': imageUrl
         });
         console.log({
           'name': trackName,
@@ -76,23 +77,13 @@ const HipHopChallenge = () => {
         Hip Hop Challenge
       </Typography>
       <Typography variant="h5" color="textSecondary" paragraph>
-        Guess the current top-200 hip hop song based on the clues.
+        Guess the mainstream hip hop song based on the clues.
       </Typography>
 
       {/* Show playlists if they exist */}
       {randomTrack?.name !== undefined && (
         <div>
-          <Typography variant="h6" color="textPrimary" gutterBottom>
-            Selected Track: {randomTrack?.name}
-          </Typography>
-          <Grid2 container spacing={2}>
-            <Grid2 item xs={12} sm={6} sx={{ width: '30%' }}>
-              <SearchBar />
-            </Grid2>
-            <Grid2 item xs={12} sm={6} sx={{ width: '65%' }}>
-              <GuessesTable />
-            </Grid2>
-          </Grid2>
+          <SearchBar songToGuess={randomTrack} />
         </div>
       )}
 
