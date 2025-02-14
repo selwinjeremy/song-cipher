@@ -138,13 +138,23 @@ app.get("/song", async (req, res) => {
 // Fetch playlists
 app.get("/playlistSong", async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")[1]; // Extract token from headers
+    const genre = req.query.genre;
+    let genreSelected = 'pop'
+    switch (genre){
+        case 'hiphop':
+            genreSelected = process.env.HIP_HOP_PLAYLIST_ID
+            break;
+        case 'pop':
+            genreSelected = process.env.POP_PLAYLIST_ID
+            break;
+    }
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized: Missing access token" });
     }
 
     try {
-        const response = await axios.get(`https://api.spotify.com/v1/playlists/${process.env.HIP_HOP_PLAYLIST_ID}`, {
+        const response = await axios.get(`https://api.spotify.com/v1/playlists/${genreSelected}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
 

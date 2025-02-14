@@ -16,7 +16,7 @@ const cardStyles = {
 const titleStyles = {
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    color: '#1DB954', // Spotify green for the title
+    color: 'white', // Spotify green for the title
     textAlign: 'center',
 };
 

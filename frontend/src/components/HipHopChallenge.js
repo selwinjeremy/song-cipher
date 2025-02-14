@@ -29,6 +29,7 @@ const HipHopChallenge = () => {
       try {
         const response = await axios.get("http://localhost:5000/playlistSong", {
           headers: { Authorization: `Bearer ${accessToken}` },
+          params: { genre: 'hiphop' },
         });
 
 
