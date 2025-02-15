@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Typography, ThemeProvider } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Button, List, ListItem, ListItemText } from '@mui/material';
+import { Button } from '@mui/material';
 import HipHopChallenge from './components/HipHopChallenge';
 import PopChallenge from './components/PopChallenge';
 import Navigation from './navigation/Navigation';
 import theme from './themes/theme';
-import axios from 'axios';
 import PlaylistChallenge from './components/PlaylistChallenge';
 
 function App() {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid2, Card, CardActionArea, CardMedia, CardContent, Button } from "@mui/material";
+import { Typography, Grid2, Card, CardMedia, Button } from "@mui/material";
 import axios from "axios";
 import SearchBar from './SpotifySearchBar';
 
@@ -91,7 +91,7 @@ const PlaylistChallenge = () => {
             }
         };
         fetchRandomTrack();
-    }, [selectedPlaylist])
+    }, [selectedPlaylist, accessToken])
 
     const handlePlaylistClick = (playlist) => {
         setSelectedPlaylist(playlist)

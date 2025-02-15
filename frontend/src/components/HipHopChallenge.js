@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, List, ListItem, ListItemText, Button, Grid2 } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import axios from "axios";
 import SearchBar from './SpotifySearchBar';
 
