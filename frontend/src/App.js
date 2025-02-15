@@ -8,6 +8,7 @@ import PopChallenge from './components/PopChallenge';
 import Navigation from './navigation/Navigation';
 import theme from './themes/theme';
 import axios from 'axios';
+import PlaylistChallenge from './components/PlaylistChallenge';
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
               <Routes>
                 <Route path="/hip-hop-challenge" element={<HipHopChallenge />} />
                 <Route path="/pop-challenge" element={<PopChallenge />} />
+                <Route path="/playlist-challenge" element={<PlaylistChallenge/>} />
               </Routes>
             )}
           </div>

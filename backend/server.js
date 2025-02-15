@@ -135,6 +135,22 @@ app.get("/song", async (req, res) => {
     }
 });
 
+app.get("/playlists", async (req, res) => {
+    const token = req.headers.authorization?.split("Bearer ")[1];
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized: Missing access token" });
+    }
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/me/playlists`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error("Error fetching playlists:", error.response?.data || error.message);
+        res.status(error.response?.status).json({ error: "Failed to fetch playlists" });
+    }
+})
+
 // Fetch playlists
 app.get("/playlistSong", async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")[1]; // Extract token from headers
@@ -159,7 +175,27 @@ app.get("/playlistSong", async (req, res) => {
         });
 
         const randomTrack = getRandomTrack(response.data.tracks['items'])
-        console.log(randomTrack.track.name)
+        res.json(randomTrack);
+    } catch (error) {
+        console.error("Error fetching playlists:", error.response?.data || error.message);
+        res.status(error.response?.status).json({ error: "Failed to fetch playlists" });
+    }
+});
+
+app.get("/userPlaylistSong", async (req, res) => {
+    const token = req.headers.authorization?.split("Bearer ")[1]; // Extract token from headers
+    const playlistId = req.query.id;
+
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized: Missing access token" });
+    }
+
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const randomTrack = getRandomTrack(response.data.tracks['items'])
         res.json(randomTrack);
     } catch (error) {
         console.error("Error fetching playlists:", error.response?.data || error.message);

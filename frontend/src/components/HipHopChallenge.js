@@ -50,14 +50,6 @@ const HipHopChallenge = () => {
           'artists': artists,
           'image': imageUrl
         });
-        console.log({
-          'name': trackName,
-          'released': releaseDate,
-          'album': albumName,
-          'popularity': popularityScore,
-          'songLength': trackLength,
-          'artists': artists
-        })
         //Assign track metadata
         //Track Name , Released On , Album , Popularity Score , Artists , Track Length
       } catch (error) {

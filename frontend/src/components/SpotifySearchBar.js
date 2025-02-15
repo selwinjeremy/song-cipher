@@ -106,7 +106,6 @@ const SearchBar = ({ songToGuess }) => {
 
                     return { id, trackName, artists, albumName, imageUrl };
                 });
-                console.log(trackInfo)
                 setResults(trackInfo)
             } catch (error) {
                 console.error("Error fetching search results:", error);
@@ -121,8 +120,6 @@ const SearchBar = ({ songToGuess }) => {
     useEffect(() => {
         if (Object.keys(guessedTrack).length === 0) return; // Prevent running on initial render
 
-        console.log(guessedTrack);
-        console.log(songToMatch);
         const isCorrectName = guessedTrack.name === songToMatch.name;
 
         //This use effect will compare the fields and add the results to the guesses array
@@ -232,7 +229,6 @@ const SearchBar = ({ songToGuess }) => {
         };
         guess['Artists'] = artistComparison;
 
-        console.log(guess)
 
         setGuessingData(guessingData => [...guessingData, guess]);
 
@@ -256,7 +252,6 @@ const SearchBar = ({ songToGuess }) => {
                 params: { songId: songId }
             });
 
-            console.log(response.data)
 
             setGuessedTrack({
                 'name': response?.data?.name,
