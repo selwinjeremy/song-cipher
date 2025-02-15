@@ -28,8 +28,10 @@ const PlaylistChallenge = () => {
 
         const fetchRandomTrack = async () => {
             try {
-
-                const response = await axios.get(`${process.env.API_URI}/playlists`, {
+                console.log(process.env)
+                const uri = process.env.REACT_APP_API_URI + "/playlists";  // Access the environment variable
+                console.log(uri); 
+                const response = await axios.get(`${process.env.REACT_APP_API_URI}/playlists`, {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 });
                 const playlistList = response?.data?.items.map(item => ({
@@ -58,7 +60,7 @@ const PlaylistChallenge = () => {
 
         const fetchRandomTrack = async () => {
             try {
-                const response = await axios.get(`${process.env.API_URI}/userPlaylistSong`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URI}/userPlaylistSong`, {
                     headers: { Authorization: `Bearer ${accessToken}` },
                     params: { id: selectedPlaylist.id },
                 });
@@ -198,7 +200,7 @@ const PlaylistChallenge = () => {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        window.location.href = `${process.env.API_URI}/login`;
+                        window.location.href = `${process.env.REACT_APP_API_URI}/login`;
                     }}
                 >
                     Login with Spotify

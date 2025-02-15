@@ -90,7 +90,7 @@ const SearchBar = ({ songToGuess }) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${process.env.API_URI}/search`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URI}/search`, {
                     headers: { Authorization: `Bearer ${accessToken}` },
                     params: { query: debouncedQuery },
                 });
@@ -247,7 +247,7 @@ const SearchBar = ({ songToGuess }) => {
     const handleSongGuess = async (songId) => {
         setLoading(true)
         try {
-            const response = await axios.get(`${process.env.API_URI}/song`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URI}/song`, {
                 headers: { Authorization: `Bearer ${accessToken}` },
                 params: { songId: songId }
             });
