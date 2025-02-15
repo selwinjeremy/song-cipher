@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Divider } from "@mui/material";
 import axios from "axios";
 import SearchBar from './SpotifySearchBar';
 
@@ -73,9 +73,12 @@ const HipHopChallenge = () => {
         Guess the mainstream hip hop song based on the clues.
       </Typography>
 
-      {/* Show playlists if they exist */}
-      {randomTrack?.name !== undefined && (
+      {randomTrack?.name && (
         <div>
+          <Divider style={{ margin: "30px 0", borderColor: "#B3B3B3" }} />
+          <Typography variant="h4" color="textPrimary" gutterBottom>
+            Guess the Song Below
+          </Typography>
           <SearchBar songToGuess={randomTrack} />
         </div>
       )}

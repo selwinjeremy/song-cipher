@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid2, Card, CardMedia, Button } from "@mui/material";
+import { Typography, Grid2, Card, CardMedia, Button, Divider } from "@mui/material";
 import axios from "axios";
 import SearchBar from './SpotifySearchBar';
 
@@ -124,9 +124,9 @@ const PlaylistChallenge = () => {
                                 borderRadius: "8px",
                                 transition: "0.2s ease-in-out",
                                 cursor: "pointer",
-                                backgroundColor: "#1E1E1E",
+                                backgroundColor: selectedPlaylist?.id === playlist.id ? "#1DB954" : "#1E1E1E",
                                 color: "#fff",
-                                border: "1px solid transparent",
+                                border: selectedPlaylist?.id === playlist.id ? "1px solid #1DB954" : "1px solid transparent",
                                 width: "220px",
                                 height: "80px",
                                 '&:hover': {
@@ -156,6 +156,7 @@ const PlaylistChallenge = () => {
                                         whiteSpace: "nowrap",
                                         overflow: "hidden",
                                         textOverflow: "ellipsis",
+                                        fontWeight: selectedPlaylist?.id === playlist.id ? "bold" : ""
                                     }}
                                 >
                                     {playlist.name}
@@ -163,11 +164,12 @@ const PlaylistChallenge = () => {
                                 <Typography
                                     variant="body2"
                                     style={{
-                                        color: "#B3B3B3",
+                                        color: "#fff",
                                         fontSize: "12px",
                                         whiteSpace: "nowrap",
                                         overflow: "hidden",
                                         textOverflow: "ellipsis",
+                                        fontWeight: selectedPlaylist?.id === playlist.id ? "bold" : ""
                                     }}
                                 >
                                     {playlist.ownerName}
@@ -191,6 +193,10 @@ const PlaylistChallenge = () => {
 
             {randomTrack?.name && (
                 <div>
+                    <Divider style={{ margin: "30px 0", borderColor: "#B3B3B3" }} />
+                    <Typography variant="h4" color="textPrimary" gutterBottom>
+                        Guess the Song Below
+                    </Typography>
                     <SearchBar songToGuess={randomTrack} />
                 </div>
             )}
