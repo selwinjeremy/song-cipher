@@ -17,6 +17,8 @@ let tokenExpiresAt = 0;
 // Enable CORS
 app.use(cors());
 
+app.get('/', (req, res) => res.send('Welcome to Song Cipher'))
+
 // Redirect user to Spotify login
 app.get("/login", (req, res) => {
     const scope = "playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public";
