@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const redirect_uri = `${process.env.API_URI}/callback`; // Redirect after login
-const frontend_uri = "http://localhost:3000"; // React app URL
+const frontend_uri = `${process.env.FRONT_END_URI}`; // React app URL
 
 let accessToken = null;
 let refreshToken = null;
