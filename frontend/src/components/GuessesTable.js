@@ -1,8 +1,18 @@
 import React from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
-import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Tooltip } from "@mui/material";
+import { ArrowUpward, ArrowDownward, InfoOutlined } from "@mui/icons-material";
 
 const GuessesTable = ({ guesses }) => {
+
+  const columnHeaders = [
+    { name: "Name", helpText: <>Red: Incorrect Song Name <br /> Green: Correct Song Name</> },
+    { name: "Artists", helpText: <>Red: No Correct Artists <br /> Yellow: Atleast 1 Correct Artist <br /> Green: Correct Artists</>},
+    { name: "Album", helpText: <>Red: Incorrect Album Name <br /> Green: Correct Album Name</> },
+    { name: "Released On", helpText: <>Red: Year is off by atleast 2 Years <br /> Yellow: Year is off by 1 Year <br /> Green: Correct Year <br /> Up Arrow: The Song to Guess is more recent <br /> Down Arrow: The Song to Guess is older</> },
+    { name: "Song Length", helpText: <>Red: Song Length is off by atleast 30 seconds <br /> Yellow: Song Length is less than 30 seconds off <br /> Green: Correct Song Length <br /> Up Arrow: The Song to Guess is longer <br /> Down Arrow: The Song to Guess is shorter</> },
+    { name: "Popularity", helpText: <>Red: Popularity is off by more than 10 points <br /> Yellow: Popularity is less than 10 points off <br /> Green: Correct Popularity Score <br /> Up Arrow: The Song to Guess is more popular <br /> Down Arrow: The Song to Guess less popular</> },
+  ];
+  
   return (
     <Box
       style={{
@@ -19,9 +29,12 @@ const GuessesTable = ({ guesses }) => {
           {/* ---- Table Header ---- */}
           <TableHead>
             <TableRow style={{ backgroundColor: "#282828" }}>
-              {["Name", "Artists", "Album", "Released On", "Song Length", "Popularity"].map((header) => (
-                <TableCell key={header} style={{ color: "#B3B3B3", fontWeight: "bold", fontSize: "14px", padding: "14px" }}>
-                  {header}
+              {columnHeaders.map(({name, helpText}) => (
+                <TableCell key={name} style={{ color: "#B3B3B3", fontWeight: "bold", fontSize: "14px", padding: "14px" }}>
+                  {name}
+                  <Tooltip title={helpText} arrow>
+                    <InfoOutlined fontSize="small" style={{ marginLeft: 5, cursor: "pointer", color: "#B3B3B3" }} />
+                  </Tooltip>
                 </TableCell>
               ))}
             </TableRow>
