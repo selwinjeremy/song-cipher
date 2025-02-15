@@ -5,7 +5,7 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 const app = express();
-const port = provess.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 const redirect_uri = `${process.env.API_URI}/callback`; // Redirect after login
 const frontend_uri = "http://localhost:3000"; // React app URL
