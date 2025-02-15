@@ -40,7 +40,9 @@ function App() {
           </Typography>
 
           {/* Render Navigation Component */}
-          <Navigation />
+          {accessToken && (
+            <Navigation />
+          )}
 
           {/* Define the Routes */}
           <div style={{ padding: '20px', textAlign: 'center' }}>
