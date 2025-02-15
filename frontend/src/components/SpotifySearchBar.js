@@ -54,9 +54,19 @@ const SearchBar = ({ songToGuess }) => {
     const handleHintReveal = (hint) => {
         setRevealedHints((prevState) => ({
             ...prevState,
-            [hint]: true,
+            [hint]: !prevState[hint],
         }));
     };
+
+    const handleHintClose = () => {
+        setRevealedHints({
+            name: false,
+            artists: false,
+            album: false,
+            year: false,
+        });
+        setHintsDialogOpen(false)
+    }
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -378,7 +388,7 @@ const SearchBar = ({ songToGuess }) => {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setHintsDialogOpen(false)} style={modalStyles.button} variant="contained">
+                    <Button onClick={() => handleHintClose()} style={modalStyles.button} variant="contained">
                         Close
                     </Button>
                 </DialogActions>
