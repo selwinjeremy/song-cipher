@@ -402,11 +402,13 @@ const SearchBar = ({ songToGuess }) => {
                         borderRadius: "10px",
                     }}
                 >
-                    {/* ---- Search Input ---- */}
+                    <Typography variant="h5" color="textPrimary" gutterBottom textAlign={'left'}>
+                        Search a song, artist, or album:
+                    </Typography>
                     <TextField
                         fullWidth
                         variant="outlined"
-                        placeholder="Search for a song..."
+                        placeholder="Ex: Drake or FE!N or Astroworld"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         style={{
