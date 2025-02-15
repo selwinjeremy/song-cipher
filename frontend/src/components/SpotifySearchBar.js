@@ -151,6 +151,13 @@ const SearchBar = ({ songToGuess }) => {
         } else {
             releaseComparison.Colour = "red"
         }
+        if (Math.abs(actualYear - guessedYear) > 1){
+            if (guessedYear > actualYear){
+                releaseComparison.Icon = 'down'
+            } else {
+                releaseComparison.Icon = "up"
+            } 
+        }
         guess['Released'] = releaseComparison;
 
         //Handle logic for album name
