@@ -45,7 +45,7 @@ function App() {
           {/* Define the Routes */}
           <div style={{ padding: '20px', textAlign: 'center' }}>
             {!accessToken ? (
-              <Button variant="contained" color="primary" href="http://localhost:5000/login">
+              <Button variant="contained" color="primary" href={`${process.env.API_URI}/login`}>
                 Login with Spotify
               </Button>
             ) : (

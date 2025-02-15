@@ -7,7 +7,7 @@ const querystring = require('querystring');
 const app = express();
 const port = 5000;
 
-const redirect_uri = "http://localhost:5000/callback"; // Redirect after login
+const redirect_uri = `${process.env.API_URI}/callback`; // Redirect after login
 const frontend_uri = "http://localhost:3000"; // React app URL
 
 let accessToken = null;
