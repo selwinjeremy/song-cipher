@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 
 const GuessesTable = ({ guesses }) => {
