@@ -126,7 +126,7 @@ const PlaylistChallenge = () => {
                                 cursor: "pointer",
                                 backgroundColor: selectedPlaylist?.id === playlist.id ? "#1DB954" : "#1E1E1E",
                                 color: "#fff",
-                                border: selectedPlaylist?.id === playlist.id ? "1px solid #1DB954" : "1px solid transparent",
+                                border: selectedPlaylist?.id === playlist.id ? "2px solid white" : "1px solid transparent",
                                 width: "220px",
                                 height: "80px",
                                 '&:hover': {
@@ -185,7 +185,7 @@ const PlaylistChallenge = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleLoadMore}
-                    style={{ marginTop: "20px" }}
+                    style={{ marginTop: "20px", color: '#fff', fontWeight: 'bold',}}
                 >
                     Load More
                 </Button>
