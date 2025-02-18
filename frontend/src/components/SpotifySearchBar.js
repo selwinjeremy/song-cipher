@@ -14,11 +14,11 @@ const SearchBar = ({ songToGuess }) => {
     const [winModalOpen, setWinModalOpen] = useState(false);
     const [hintsDialogOpen, setHintsDialogOpen] = useState(false);
     const [revealedHints, setRevealedHints] = useState({
-        name: false,
         artists: false,
         album: false,
         year: false,
     });
+    const [winOrLose, setWinOrLose] = useState(null)
 
     const songToMatch = songToGuess;
 
@@ -127,6 +127,11 @@ const SearchBar = ({ songToGuess }) => {
         fetchData();
     }, [debouncedQuery, accessToken]);
 
+    const revealAnswer = () => {
+        setWinOrLose(false);
+        setWinModalOpen(true);
+    }
+
     useEffect(() => {
         if (Object.keys(guessedTrack).length === 0) return; // Prevent running on initial render
 
@@ -136,6 +141,7 @@ const SearchBar = ({ songToGuess }) => {
         const guess = {};
 
         if (isCorrectName) {
+            setWinOrLose(true)
             setWinModalOpen(true); // Show the win modal
         }
 
@@ -161,12 +167,12 @@ const SearchBar = ({ songToGuess }) => {
         } else {
             releaseComparison.Colour = "red"
         }
-        if (Math.abs(actualYear - guessedYear) > 1){
-            if (guessedYear > actualYear){
+        if (Math.abs(actualYear - guessedYear) > 1) {
+            if (guessedYear > actualYear) {
                 releaseComparison.Icon = 'down'
             } else {
                 releaseComparison.Icon = "up"
-            } 
+            }
         }
         guess['Released'] = releaseComparison;
 
@@ -291,7 +297,7 @@ const SearchBar = ({ songToGuess }) => {
                 }}
             >
                 <DialogTitle style={modalStyles.title}>
-                    🎉 You Won in {guessingData.length} Tries! 🎉
+                    {winOrLose ? `🎉 You Won in ${guessingData.length} Tries! 🎉` : `You Gave Up in ${guessingData.length} Tries`}
                 </DialogTitle>
                 <DialogContent>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -316,7 +322,7 @@ const SearchBar = ({ songToGuess }) => {
 
                         {/* Song Details */}
                         <Box>
-                            <Typography variant="h6" color="#1DB954" style={modalStyles.content} sx={{fontWeight: 'bold'}}>
+                            <Typography variant="h6" color="#1DB954" style={modalStyles.content} sx={{ fontWeight: 'bold' }}>
                                 {songToMatch.name}
                             </Typography>
                             <Typography variant="body2" style={modalStyles.content}>
@@ -339,26 +345,15 @@ const SearchBar = ({ songToGuess }) => {
             </Dialog>
 
             <Dialog open={hintsDialogOpen} onClose={() => setHintsDialogOpen(false)}>
-                <DialogTitle sx={{fontWeight: 'bold'}}>Song Hints</DialogTitle>
+                <DialogTitle sx={{ fontWeight: 'bold' }}>Song Hints</DialogTitle>
                 <DialogContent>
                     <Box>
-                        {/* Name Hint */}
-                        <Typography variant="body1" sx={{ mb: 2 }}>
-                            <strong>Name:</strong>{' '}
-                            <Button
-                                onClick={() => handleHintReveal('name')}
-                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
-                            >
-                                {revealedHints.name ? songToMatch.name : 'Click to Reveal'}
-                            </Button>
-                        </Typography>
-
                         {/* Artists Hint */}
                         <Typography variant="body1" sx={{ mb: 2 }}>
                             <strong>Artists:</strong>{' '}
                             <Button
                                 onClick={() => handleHintReveal('artists')}
-                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                                sx={{ textTransform: 'none', color: '#1DB954', fontWeight: 'bold' }}
                             >
                                 {revealedHints.artists ? songToMatch.artists.join(', ') : 'Click to Reveal'}
                             </Button>
@@ -369,7 +364,7 @@ const SearchBar = ({ songToGuess }) => {
                             <strong>Album:</strong>{' '}
                             <Button
                                 onClick={() => handleHintReveal('album')}
-                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                                sx={{ textTransform: 'none', color: '#1DB954', fontWeight: 'bold' }}
                             >
                                 {revealedHints.album ? songToMatch.album : 'Click to Reveal'}
                             </Button>
@@ -380,7 +375,7 @@ const SearchBar = ({ songToGuess }) => {
                             <strong>Year:</strong>{' '}
                             <Button
                                 onClick={() => handleHintReveal('year')}
-                                sx={{ textTransform: 'none', color:'#1DB954', fontWeight:'bold' }}
+                                sx={{ textTransform: 'none', color: '#1DB954', fontWeight: 'bold' }}
                             >
                                 {revealedHints.year ? songToMatch.released : 'Click to Reveal'}
                             </Button>
@@ -472,9 +467,24 @@ const SearchBar = ({ songToGuess }) => {
             </Grid2>
             <Grid2 item xs={12} sm={6} sx={{ width: '65%' }}>
                 <GuessesTable guesses={guessingData} />
-                <Button variant="contained" onClick={() => setHintsDialogOpen(true)} style={modalStyles.button} sx={{ width: '95%' }}>
-                    Get Hints for the Song
-                </Button>
+                <div sx={{ width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+                    <Button
+                        variant="contained"
+                        onClick={() => setHintsDialogOpen(true)}
+                        sx={{ width: '65%' }}
+                        style={modalStyles.button}
+                    >
+                        Get Hints for the Song
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => revealAnswer()}
+                        sx={{ width: '25%', ml: '5%' }}
+                        style={modalStyles.button}
+                    >
+                        Reveal Answer
+                    </Button>
+                </div>
             </Grid2>
         </Grid2>
 
